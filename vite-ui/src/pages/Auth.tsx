@@ -130,7 +130,7 @@ const Auth = () => {
               <div className="space-y-2">
                 <Label htmlFor="email" className="font-thai">อีเมล</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Mail className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <Input
                     id="email"
                     type="email"
@@ -146,7 +146,7 @@ const Auth = () => {
               <div className="space-y-2">
                 <Label htmlFor="password" className="font-thai">รหัสผ่าน</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Lock className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <Input
                     id="password"
                     type="password"

@@ -4,7 +4,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: '/aun-jai-care-connect/',
+  base: process.env.NODE_ENV === 'production' ? '/aun-jai-care-connect/' : '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
