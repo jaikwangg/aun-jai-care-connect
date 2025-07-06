@@ -1,21 +1,19 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
   Heart, 
   MapPin, 
   Clock, 
-  Camera, 
   Phone, 
-  Plus, 
+  Car,
   Navigation,
+  Calendar,
   User,
   Bell,
-  CheckCircle,
-  AlertCircle
+  CreditCard
 } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
@@ -23,31 +21,6 @@ import { useNavigate } from 'react-router-dom';
 const FamilyDashboard = () => {
   const { user } = useApp();
   const navigate = useNavigate();
-
-  // Mock data for timeline updates
-  const timelineUpdates = [
-    {
-      id: 1,
-      timestamp: '14:30',
-      text: 'เดินทางถึงบ้านแล้ว กำลังเริ่มดูแลคุณยาย',
-      mediaURL: null,
-      type: 'arrival'
-    },
-    {
-      id: 2,
-      timestamp: '15:15',
-      text: 'ให้ยาตามเวลาแล้ว คุณยายทานครบทุกเม็ด',
-      mediaURL: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7',
-      type: 'medication'
-    },
-    {
-      id: 3,
-      timestamp: '16:00',
-      text: 'กำลังพาไปเดินในสวนเพื่อออกกำลังกาย',
-      mediaURL: null,
-      type: 'activity'
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-orange-50">
@@ -67,7 +40,7 @@ const FamilyDashboard = () => {
             <div className="flex items-center space-x-2">
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="w-5 h-5" />
-                <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 text-xs bg-highlight">3</Badge>
+                <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 text-xs bg-highlight">2</Badge>
               </Button>
               <Button variant="ghost" onClick={() => navigate('/profile')}>
                 <User className="w-4 h-4 mr-2" />
@@ -78,196 +51,120 @@ const FamilyDashboard = () => {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Live Tracking Card */}
-            <Card className="bg-white/80 backdrop-blur-sm border border-white/30 warm-glow">
-              <CardHeader>
-                <CardTitle className="font-thai-heading flex items-center justify-between">
-                  <div className="flex items-center">
-                    <MapPin className="w-5 h-5 mr-2 text-primary" />
-                    การติดตามสด
-                  </div>
-                  <Badge className="bg-accent font-thai caring-pulse">กำลังดูแล</Badge>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-gray-100 rounded-lg h-48 flex items-center justify-center mb-4 relative overflow-hidden">
-                  {/* Mock map with route */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-green-100"></div>
-                  <div className="relative z-10 text-center">
-                    <Navigation className="w-8 h-8 text-primary mx-auto mb-2" />
-                    <p className="font-thai text-sm text-gray-600">แผนที่จะแสดงที่นี่</p>
-                    <p className="font-thai text-xs text-gray-500">ตำแหน่งผู้ดูแลและเส้นทาง</p>
-                  </div>
-                  
-                  {/* Mock location pins */}
-                  <div className="absolute top-4 left-4 w-3 h-3 bg-accent rounded-full animate-pulse"></div>
-                  <div className="absolute bottom-4 right-6 w-3 h-3 bg-primary rounded-full animate-pulse"></div>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <Avatar className="w-10 h-10">
-                      <AvatarImage src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7" />
-                      <AvatarFallback className="bg-accent text-white font-thai-heading text-sm">กมล</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-thai font-medium">คุณกมลวรรณ</p>
-                      <p className="text-sm text-muted-foreground font-thai">อยู่ที่บ้าน • 2.5 กม.</p>
-                    </div>
-                  </div>
-                  <Button size="sm" className="font-thai touch-button">
-                    <Phone className="w-4 h-4 mr-2" />
-                    โทรหา
-                  </Button>
-                </div>
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-16 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-thai-heading font-bold text-gray-800 mb-6 caring-pulse">
+            ดูแลคนที่คุณรัก<br />
+            <span className="text-primary">ด้วยความใส่ใจ</span>
+          </h2>
+          <p className="text-xl text-gray-600 font-thai mb-12 leading-relaxed">
+            ติดตามการดูแลแบบเรียลไทม์ พร้อมบริการที่ตอบโจทย์ทุกความต้องการ
+          </p>
+
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
+              <CardContent className="p-6 flex items-center justify-center flex-col">
+                <Clock className="w-8 h-8 text-highlight mb-3" />
+                <div className="text-2xl font-thai-heading font-bold text-gray-800">24/7</div>
+                <p className="text-gray-600 font-thai">บริการตลอด 24 ชั่วโมง</p>
               </CardContent>
             </Card>
-
-            {/* Timeline Feed */}
             <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
-              <CardHeader>
-                <CardTitle className="font-thai-heading flex items-center">
-                  <Clock className="w-5 h-5 mr-2 text-primary" />
-                  อัปเดตการดูแล
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {timelineUpdates.map((update) => (
-                    <div key={update.id} className="flex items-start space-x-3 p-4 bg-gray-50/50 rounded-lg border border-gray-100">
-                      <div className="flex-shrink-0">
-                        {update.type === 'arrival' && <CheckCircle className="w-5 h-5 text-accent" />}
-                        {update.type === 'medication' && <AlertCircle className="w-5 h-5 text-primary" />}
-                        {update.type === 'activity' && <Camera className="w-5 h-5 text-highlight" />}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-500">{update.timestamp}</span>
-                        </div>
-                        <p className="font-thai text-gray-800">{update.text}</p>
-                        {update.mediaURL && (
-                          <div className="mt-2">
-                            <img 
-                              src={update.mediaURL} 
-                              alt="อัปเดตรูปภาพ" 
-                              className="w-24 h-24 object-cover rounded-lg border border-gray-200"
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <CardContent className="p-6 flex items-center justify-center flex-col">
+                <MapPin className="w-8 h-8 text-accent mb-3" />
+                <div className="text-2xl font-thai-heading font-bold text-gray-800">15+</div>
+                <p className="text-gray-600 font-thai">สาขาในกรุงเทพฯ</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
+              <CardContent className="p-6 flex items-center justify-center flex-col">
+                <Heart className="w-8 h-8 text-primary mb-3" />
+                <div className="text-2xl font-thai-heading font-bold text-gray-800">100+</div>
+                <p className="text-gray-600 font-thai">ผู้ดูแลที่พร้อมให้บริการ</p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Package Status */}
-            <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
-              <CardHeader>
-                <CardTitle className="font-thai-heading text-lg">สถานะแพ็กเกจ</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center p-4 bg-accent/5 rounded-lg border border-accent/10">
-                  <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Heart className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-thai-heading font-semibold text-accent mb-2">
-                    Peace-of-Mind Monthly
-                  </h3>
-                  <p className="text-sm text-muted-foreground font-thai mb-3">
-                    เหลือ 18 วัน
-                  </p>
-                  <Badge className="bg-accent font-thai">ใช้งานได้ 2/4 ครั้ง</Badge>
-                </div>
-                
-                <Button 
-                  className="w-full mt-4 font-thai touch-button"
-                  onClick={() => navigate('/packages')}
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  เพิ่มบริการ
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Quick Book Care */}
-            <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
-              <CardHeader>
-                <CardTitle className="font-thai-heading text-lg">จองบริการด่วน</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start font-thai touch-button bg-primary/5 hover:bg-primary/10 border-primary/20"
-                  onClick={() => navigate('/book-care')}
-                >
-                  <Car className="w-4 h-4 mr-3 text-primary" />
-                  พาไปโรงพยาบาล
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start font-thai touch-button bg-accent/5 hover:bg-accent/10 border-accent/20"
-                  onClick={() => navigate('/book-care')}
-                >
-                  <Heart className="w-4 h-4 mr-3 text-accent" />
-                  ดูแลตลอดคืน
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start font-thai touch-button bg-highlight/5 hover:bg-highlight/10 border-highlight/20"
-                  onClick={() => navigate('/book-care')}
-                >
-                  <User className="w-4 h-4 mr-3 text-highlight" />
-                  เพื่อนคู่คิด
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Senior Info */}
-            <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
-              <CardHeader>
-                <CardTitle className="font-thai-heading text-lg">ข้อมูลผู้สูงอายุ</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center space-x-3 mb-4">
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage src="https://images.unsplash.com/photo-1721322800607-8c38375eef04" />
-                    <AvatarFallback className="bg-primary text-white font-thai-heading">ยาย</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="font-thai-heading font-semibold">คุณยายสมหญิง</h3>
-                    <p className="text-sm text-muted-foreground font-thai">อายุ 75 ปี</p>
-                  </div>
-                </div>
-                
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between font-thai">
-                    <span className="text-muted-foreground">ยาประจำ:</span>
-                    <span>3 ชนิด</span>
-                  </div>
-                  <div className="flex justify-between font-thai">
-                    <span className="text-muted-foreground">แพ้ยา:</span>
-                    <span>เพนนืิซิลิน</span>
-                  </div>
-                  <div className="flex justify-between font-thai">
-                    <span className="text-muted-foreground">ติดต่อฉุกเฉิน:</span>
-                    <span>02-XXX-XXXX</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Action Buttons */}
+          <div className="flex flex-col md:flex-row justify-center gap-4">
+            <Button size="lg" className="touch-button font-thai">
+              <Phone className="w-5 h-5 mr-2" />
+              ติดต่อผู้ดูแล
+            </Button>
+            <Button size="lg" className="touch-button font-thai">
+              <Car className="w-5 h-5 mr-2" />
+              จองบริการเดินทาง
+            </Button>
+            <Button size="lg" className="touch-button font-thai">
+              <CreditCard className="w-5 h-5 mr-2" />
+              จัดการค่าใช้จ่าย
+            </Button>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Care Plan Section */}
+      <section className="container mx-auto px-4 py-12">
+        <h3 className="text-3xl font-thai-heading font-bold text-gray-800 mb-8 text-center">
+          แผนการดูแล
+        </h3>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Plan Card 1 */}
+          <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
+            <CardHeader>
+              <CardTitle className="text-xl font-thai-heading">การดูแลทั่วไป</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600 font-thai mb-4">
+                บริการดูแลพื้นฐานสำหรับผู้สูงอายุที่บ้าน
+              </p>
+              <ul className="list-disc list-inside text-gray-600 font-thai">
+                <li>ดูแลความสะอาดส่วนตัว</li>
+                <li>เตรียมอาหารและป้อน</li>
+                <li>ช่วยเหลือในการเคลื่อนไหว</li>
+              </ul>
+              <Button className="mt-4 font-thai touch-button">ดูรายละเอียด</Button>
+            </CardContent>
+          </Card>
+
+          {/* Plan Card 2 */}
+          <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
+            <CardHeader>
+              <CardTitle className="text-xl font-thai-heading">การดูแลพิเศษ</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-600 font-thai mb-4">
+                บริการดูแลสำหรับผู้ที่มีความต้องการพิเศษ เช่น ผู้ป่วยอัลไซเมอร์
+              </p>
+              <ul className="list-disc list-inside text-gray-600 font-thai">
+                <li>การดูแลด้านการแพทย์เบื้องต้น</li>
+                <li>กิจกรรมบำบัด</li>
+                <li>การดูแลด้านจิตใจและสังคม</li>
+              </ul>
+              <Button className="mt-4 font-thai touch-button">ดูรายละเอียด</Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white/50 backdrop-blur-sm border-t border-white/20 mt-16">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <Heart className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-lg font-thai-heading font-bold text-primary">Unjai Care</span>
+            </div>
+            <p className="text-gray-600 font-thai">
+              © 2024 Unjai Care - อุ่นใจดูแล | ดูแลด้วยใจ เชื่อใจได้
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
