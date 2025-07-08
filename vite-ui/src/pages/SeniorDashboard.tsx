@@ -37,7 +37,7 @@ const SeniorDashboard = () => {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-thai-heading font-bold text-primary">Unjai Care</h1>
+                <h1 className="text-xl font-thai-heading font-bold text-primary">Oonjai Care</h1>
                 <p className="text-sm text-muted-foreground font-thai">สวัสดี คุณ{user?.nameTH}</p>
               </div>
             </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,45 +14,55 @@ import {
   Car,
   Home
 } from 'lucide-react';
+import TrustSafety from './TrustSafety';
 
 const Packages = () => {
   const navigate = useNavigate();
 
-  const packages = [
+  const services = [
     {
-      id: 'peace-of-mind',
-      title: 'Peace-of-Mind Monthly',
-      titleTH: 'แพ็กเกจอุ่นใจรายเดือน',
-      price: 4990,
-      originalPrice: 6000,
-      visits: '1-2 ครั้ง/สัปดาห์',
-      popular: true,
-      features: [
-        'การดูแลทั่วไป 8 ชั่วโมง/ครั้ง',
-        'ผู้ดูแลประจำที่ผ่านการตรวจสอบ',
-        'รายงานการดูแลแบบเรียลไทม์',
-        'บริการฉุกเฉินตลอด 24 ชั่วโมง',
-        'ปรึกษาพยาบาลออนไลน์ฟรี',
-        'ประกันการดูแล 50,000 บาท'
-      ],
-      color: 'accent'
+      id: 1,
+      titleTh: "อุ่นใจแคร์ยู",
+      titleEn: "Oonjai Care U",
+      description: "บริการพาส่งโรงพยาบาล พร้อมประสานงานครบวงจร",
+      icon: "🏥",
+      features: ["พาส่งโรงพยาบาล", "ประสานงานแพทย์", "รายงานผลตรวจ", "จัดการนัดหมาย"],
+      price: "เริ่มต้น ฿800/วัน",
+      gradient: "from-blue-500 to-blue-600",
+      popular: false
     },
     {
-      id: 'one-time',
-      title: 'One-Time Service',
-      titleTH: 'บริการครั้งเดียว',
-      price: 990,
-      visits: 'ตามต้องการ',
-      popular: false,
-      features: [
-        'เลือกประเภทบริการได้',
-        'ผู้ดูแลที่ผ่านการตรวจสอบ',
-        'ค่าใช้จ่ายตามเวลาจริง',
-        'จองล่วงหน้า 24 ชั่วโมง',
-        'ยกเลิกได้ฟรี (ก่อน 12 ชม.)',
-        'ใบเสร็จอิเล็กทรอนิกส์'
-      ],
-      color: 'primary'
+      id: 2,
+      titleTh: "สุขพาไป",
+      titleEn: "Sook pa Pai",
+      description: "พาเที่ยว ทำธุระ ไปวัด ไปธนาคาร ตามความต้องการ",
+      icon: "🚶‍♂️",
+      features: ["พาทำธุระ", "ไปวัดทำบุญ", "ช้อปปิ้ง", "พาเที่ยวตามใจ"],
+      price: "เริ่มต้น ฿400/ชั่วโมง",
+      gradient: "from-green-500 to-green-600",
+      popular: true
+    },
+    {
+      id: 3,
+      titleTh: "เยี่ยมแทนใจ",
+      titleEn: "Yiam Tan-Jai",
+      description: "เยี่ยมบ้าน เช็คสุขภาพ และให้กำลังใจ แพ็กเกจ 3-5 วัน",
+      icon: "🏠",
+      features: ["เยี่ยมบ้านประจำ", "เช็คสุขภาพ", "คุยเล่นให้กำลังใจ", "รายงานสุขภาพ"],
+      price: "เริ่มต้น ฿1,200/แพ็กเกจ",
+      gradient: "from-orange-500 to-orange-600",
+      popular: false
+    },
+    {
+      id: 4,
+      titleTh: "เคียงข้างอุ่นใจ",
+      titleEn: "Khiang-Khang Oonjai",
+      description: "ผู้ดูแลประจำบ้าน มืออาชีพและผู้เชี่ยวชาญ",
+      icon: "👨‍⚕️",
+      features: ["ดูแลประจำบ้าน", "ผู้ดูแลมืออาชีพ", "Basic / Expert", "รายชั่วโมง/วัน/สัปดาห์"],
+      price: "เริ่มต้น ฿600/ชั่วโมง",
+      gradient: "from-purple-500 to-purple-600",
+      popular: false
     }
   ];
 
@@ -78,9 +87,9 @@ const Packages = () => {
     }
   ];
 
-  const handleSubscribe = (packageId: string) => {
-    if (packageId === 'peace-of-mind') {
-      // Simulate subscription flow
+  const handleSubscribe = (serviceId) => {
+    // You can update this logic as needed
+    if (serviceId === 1) {
       alert('ระบบจะนำไปสู่หน้าชำระเงินรายเดือน (Stripe)');
     } else {
       navigate('/book-care');
@@ -117,25 +126,25 @@ const Packages = () => {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-thai-heading font-bold text-gray-800 mb-4">
-            เลือกแพ็กเกจที่เหมาะกับคุณ
+            เลือกบริการที่เหมาะกับคุณ
           </h2>
           <p className="text-lg text-gray-600 font-thai max-w-2xl mx-auto leading-relaxed">
             บริการดูแลผู้สูงอายุคุณภาพสูง ด้วยผู้ดูแลมืออาชีพที่ผ่านการตรวจสอบ
           </p>
         </div>
 
-        {/* Package Cards */}
+        {/* Service Cards */}
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
-          {packages.map((pkg) => (
+          {services.map((service) => (
             <Card
-              key={pkg.id}
+              key={service.id}
               className={`relative bg-white/80 backdrop-blur-sm border-2 transition-all duration-300 transform hover:scale-105 ${
-                pkg.popular 
+                service.popular 
                   ? 'border-accent/30 shadow-xl ring-2 ring-accent/20' 
                   : 'border-white/30 hover:border-primary/30'
               }`}
             >
-              {pkg.popular && (
+              {service.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <Badge className="bg-accent font-thai px-4 py-1">
                     <Star className="w-3 h-3 mr-1 fill-current" />
@@ -143,52 +152,41 @@ const Packages = () => {
                   </Badge>
                 </div>
               )}
-              
               <CardHeader className="text-center pb-4">
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                  pkg.color === 'accent' ? 'bg-accent/20' : 'bg-primary/20'
-                }`}>
-                  <Heart className={`w-8 h-8 ${
-                    pkg.color === 'accent' ? 'text-accent' : 'text-primary'
-                  }`} />
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-gradient-to-br ${service.gradient} text-3xl`}>
+                  {service.icon}
                 </div>
                 <CardTitle className="font-thai-heading text-xl mb-2">
-                  {pkg.titleTH}
+                  {service.titleTh}
                 </CardTitle>
                 <div className="flex items-center justify-center space-x-2">
-                  <span className="text-3xl font-thai-heading font-bold text-gray-800">
-                    {pkg.price.toLocaleString()} บาท
+                  <span className="text-lg font-thai-heading font-bold text-gray-800">
+                    {service.titleEn}
                   </span>
-                  {pkg.originalPrice && (
-                    <span className="text-lg text-gray-400 line-through">
-                      {pkg.originalPrice.toLocaleString()}
-                    </span>
-                  )}
                 </div>
-                <p className="text-muted-foreground font-thai">{pkg.visits}</p>
+                <p className="text-muted-foreground font-thai mt-2">{service.description}</p>
               </CardHeader>
-              
               <CardContent className="space-y-6">
                 <div className="space-y-3">
-                  {pkg.features.map((feature, index) => (
+                  {service.features.map((feature, index) => (
                     <div key={index} className="flex items-center space-x-3">
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        pkg.color === 'accent' ? 'bg-accent' : 'bg-primary'
-                      }`}>
+                      <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-primary">
                         <Check className="w-3 h-3 text-white" />
                       </div>
                       <span className="font-thai text-sm">{feature}</span>
                     </div>
                   ))}
                 </div>
-                
+                <div className="text-center text-xl font-bold text-primary">
+                  {service.price}
+                </div>
                 <Button
-                  onClick={() => handleSubscribe(pkg.id)}
+                  onClick={() => handleSubscribe(service.id)}
                   className={`w-full touch-button font-thai ${
-                    pkg.color === 'accent' ? 'bg-accent hover:bg-accent/90' : ''
+                    service.popular ? 'bg-accent hover:bg-accent/90' : ''
                   }`}
                 >
-                  {pkg.id === 'peace-of-mind' ? 'สมัครแพ็กเกจ' : 'จองบริการ'}
+                  {service.popular ? 'สมัครแพ็กเกจ' : 'จองบริการ'}
                 </Button>
               </CardContent>
             </Card>
@@ -223,6 +221,11 @@ const Packages = () => {
               );
             })}
           </div>
+        </div>
+
+        {/* Trust & Safety Section */}
+        <div className="mt-16">
+          <TrustSafety />
         </div>
 
         {/* Trust Indicators */}

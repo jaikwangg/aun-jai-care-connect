@@ -36,7 +36,7 @@ const Index = () => {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-thai-heading font-bold text-primary">Unjai Care</h1>
+                <h1 className="text-xl font-thai-heading font-bold text-primary">Oonjai Care</h1>
                 <p className="text-sm text-muted-foreground font-thai">อุ่นใจดูแล</p>
               </div>
             </div>
@@ -141,10 +141,10 @@ const Index = () => {
               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-thai-heading font-bold text-primary">Unjai Care</span>
+              <span className="text-lg font-thai-heading font-bold text-primary">Oonjai Care</span>
             </div>
             <p className="text-gray-600 font-thai">
-              © 2024 Unjai Care - อุ่นใจดูแล | ดูแลด้วยใจ เชื่อใจได้
+              © 2024 Oonjai Care - อุ่นใจดูแล | ดูแลด้วยใจ เชื่อใจได้เลย
             </p>
           </div>
         </div>

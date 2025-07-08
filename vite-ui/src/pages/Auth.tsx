@@ -36,7 +36,7 @@ const Auth = () => {
       setUser(mockUser);
       toast({
         title: isLogin ? 'เข้าสู่ระบบสำเร็จ' : 'สมัครสมาชิกสำเร็จ',
-        description: `ยินดีต้อนรับเข้าสู่ Unjai Care`,
+        description: `ยินดีต้อนรับเข้าสู่ Oonjai Care`,
       });
 
       // Navigate based on role
@@ -81,7 +81,7 @@ const Auth = () => {
               <Heart className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-thai-heading font-bold text-primary">Unjai Care</h1>
+              <h1 className="text-2xl font-thai-heading font-bold text-primary">Oonjai Care</h1>
               <p className="text-sm text-muted-foreground font-thai">อุ่นใจดูแล</p>
             </div>
           </div>
