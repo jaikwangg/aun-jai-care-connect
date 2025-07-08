@@ -13,14 +13,64 @@ import {
   Calendar,
   User,
   Bell,
-  CreditCard
+  CreditCard,
+  Star,
+  Check
 } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
+import PricingEstimator from './PricingEstimator';
 
 const FamilyDashboard = () => {
   const { user } = useApp();
   const navigate = useNavigate();
+
+  const services = [
+    {
+      id: 1,
+      titleTh: "อุ่นใจแคร์ยู",
+      titleEn: "Oonjai Care U",
+      description: "บริการพาส่งโรงพยาบาล พร้อมประสานงานครบวงจร",
+      icon: "🏥",
+      features: ["พาส่งโรงพยาบาล", "ประสานงานแพทย์", "รายงานผลตรวจ", "จัดการนัดหมาย"],
+      price: "เริ่มต้น ฿800/วัน",
+      gradient: "from-blue-500 to-blue-600",
+      popular: false
+    },
+    {
+      id: 2,
+      titleTh: "สุขพาไป",
+      titleEn: "Sook pa Pai",
+      description: "พาเที่ยว ทำธุระ ไปวัด ไปธนาคาร ตามความต้องการ",
+      icon: "🚶‍♂️",
+      features: ["พาทำธุระ", "ไปวัดทำบุญ", "ช้อปปิ้ง", "พาเที่ยวตามใจ"],
+      price: "เริ่มต้น ฿400/ชั่วโมง",
+      gradient: "from-green-500 to-green-600",
+      popular: true
+    },
+    {
+      id: 3,
+      titleTh: "เยี่ยมแทนใจ",
+      titleEn: "Yiam Tan-Jai",
+      description: "เยี่ยมบ้าน เช็คสุขภาพ และให้กำลังใจ แพ็กเกจ 3-5 วัน",
+      icon: "🏠",
+      features: ["เยี่ยมบ้านประจำ", "เช็คสุขภาพ", "คุยเล่นให้กำลังใจ", "รายงานสุขภาพ"],
+      price: "เริ่มต้น ฿1,200/แพ็กเกจ",
+      gradient: "from-orange-500 to-orange-600",
+      popular: false
+    },
+    {
+      id: 4,
+      titleTh: "เคียงข้างอุ่นใจ",
+      titleEn: "Khiang-Khang Oonjai",
+      description: "ผู้ดูแลประจำบ้าน มืออาชีพและผู้เชี่ยวชาญ",
+      icon: "👨‍⚕️",
+      features: ["ดูแลประจำบ้าน", "ผู้ดูแลมืออาชีพ", "Basic / Expert", "รายชั่วโมง/วัน/สัปดาห์"],
+      price: "เริ่มต้น ฿600/ชั่วโมง",
+      gradient: "from-purple-500 to-purple-600",
+      popular: false
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-orange-50">
@@ -105,49 +155,73 @@ const FamilyDashboard = () => {
         </div>
       </section>
 
-      {/* Care Plan Section */}
+
+      {/* Service Offerings Section (Consistent with Packages) */}
       <section className="container mx-auto px-4 py-12">
         <h3 className="text-3xl font-thai-heading font-bold text-gray-800 mb-8 text-center">
-          แผนการดูแล
+          บริการของเรา
         </h3>
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Plan Card 1 */}
-          <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
-            <CardHeader>
-              <CardTitle className="text-xl font-thai-heading">การดูแลทั่วไป</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 font-thai mb-4">
-                บริการดูแลพื้นฐานสำหรับผู้สูงอายุที่บ้าน
-              </p>
-              <ul className="list-disc list-inside text-gray-600 font-thai">
-                <li>ดูแลความสะอาดส่วนตัว</li>
-                <li>เตรียมอาหารและป้อน</li>
-                <li>ช่วยเหลือในการเคลื่อนไหว</li>
-              </ul>
-              <Button className="mt-4 font-thai touch-button">ดูรายละเอียด</Button>
-            </CardContent>
-          </Card>
-
-          {/* Plan Card 2 */}
-          <Card className="bg-white/80 backdrop-blur-sm border border-white/30">
-            <CardHeader>
-              <CardTitle className="text-xl font-thai-heading">การดูแลพิเศษ</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 font-thai mb-4">
-                บริการดูแลสำหรับผู้ที่มีความต้องการพิเศษ เช่น ผู้ป่วยอัลไซเมอร์
-              </p>
-              <ul className="list-disc list-inside text-gray-600 font-thai">
-                <li>การดูแลด้านการแพทย์เบื้องต้น</li>
-                <li>กิจกรรมบำบัด</li>
-                <li>การดูแลด้านจิตใจและสังคม</li>
-              </ul>
-              <Button className="mt-4 font-thai touch-button">ดูรายละเอียด</Button>
-            </CardContent>
-          </Card>
+        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+          {services.map((service) => (
+            <Card
+              key={service.id}
+              className={`relative bg-white/80 backdrop-blur-sm border-2 transition-all duration-300 transform hover:scale-105 ${
+                service.popular 
+                  ? 'border-accent/30 shadow-xl ring-2 ring-accent/20' 
+                  : 'border-white/30 hover:border-primary/30'
+              }`}
+            >
+              {service.popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <Badge className="bg-accent font-thai px-4 py-1">
+                    <Star className="w-3 h-3 mr-1 fill-current" />
+                    ยอดนิยม
+                  </Badge>
+                </div>
+              )}
+              <CardHeader className="text-center pb-4">
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 bg-gradient-to-br ${service.gradient} text-3xl`}>
+                  {service.icon}
+                </div>
+                <CardTitle className="font-thai-heading text-xl mb-2">
+                  {service.titleTh}
+                </CardTitle>
+                <div className="flex items-center justify-center space-x-2">
+                  <span className="text-lg font-thai-heading font-bold text-gray-800">
+                    {service.titleEn}
+                  </span>
+                </div>
+                <p className="text-muted-foreground font-thai mt-2">{service.description}</p>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-3">
+                  {service.features.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-3">
+                      <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-primary">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="font-thai text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="text-center text-xl font-bold text-primary">
+                  {service.price}
+                </div>
+                <Button
+                  className={`w-full touch-button font-thai ${
+                    service.popular ? 'bg-accent hover:bg-accent/90' : ''
+                  }`}
+                >
+                  {service.popular ? 'สมัครแพ็กเกจ' : 'จองบริการ'}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
+
+      {/* Pricing Estimator Section */}
+      <PricingEstimator />
 
       {/* Footer */}
       <footer className="bg-white/50 backdrop-blur-sm border-t border-white/20 mt-16">
