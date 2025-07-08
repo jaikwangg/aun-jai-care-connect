@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -20,11 +19,37 @@ import {
 } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { Popover } from '@/components/ui/popover';
 
 const SeniorDashboard = () => {
   const { user } = useApp();
   const navigate = useNavigate();
   const [timeUntilVisit, setTimeUntilVisit] = React.useState('2 ชั่วโมง 30 นาที');
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: 'แม่ถึงเวลาทานข้าวแล้วนะครับ', time: '09:00', read: false },
+    { id: 2, message: 'อย่าลืมทานยา 10 โมง', time: '10:00', read: false }
+  ]);
+  const [showList, setShowList] = useState(false);
+
+  const triggerReminder = (message: string) => {
+    setNotifications(prev => [
+      { id: Date.now(), message, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), read: false },
+      ...prev
+    ]);
+    toast(message, { description: 'แจ้งเตือนจาก Oonjai Care', duration: 5000 });
+    if ('speechSynthesis' in window) {
+      const utter = new window.SpeechSynthesisUtterance(message);
+      utter.lang = 'th-TH';
+      window.speechSynthesis.speak(utter);
+    }
+  };
+
+  useEffect(() => {
+    if (showList) {
+      setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    }
+  }, [showList]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-orange-50">
@@ -42,10 +67,38 @@ const SeniorDashboard = () => {
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="w-5 h-5" />
-                <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 text-xs bg-highlight">2</Badge>
-              </Button>
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="relative"
+                  onClick={() => setShowList(v => !v)}
+                >
+                  <Bell className="w-5 h-5" />
+                  {notifications.some(n => !n.read) && (
+                    <Badge className="absolute -top-1 -right-2 w-5 h-5 p-1 text-xs bg-highlight">
+                      {notifications.filter(n => !n.read).length}
+                    </Badge>
+                  )}
+                </Button>
+                {showList && (
+                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border z-50">
+                    <div className="p-4 border-b font-bold text-primary">แจ้งเตือน</div>
+                    {notifications.length === 0 ? (
+                      <div className="p-4 text-center text-gray-400 font-thai">ไม่มีแจ้งเตือน</div>
+                    ) : (
+                      <ul className="max-h-80 overflow-y-auto">
+                        {notifications.map(n => (
+                          <li key={n.id} className="p-4 border-b last:border-b-0 hover:bg-gray-50">
+                            <div className="font-thai">{n.message}</div>
+                            <div className="text-xs text-gray-400 mt-1">{n.time}</div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+              </div>
               <Button variant="ghost" onClick={() => navigate('/profile')}>
                 <User className="w-4 h-4 mr-2" />
                 <span className="font-thai">โปรไฟล์</span>
@@ -64,7 +117,7 @@ const SeniorDashboard = () => {
               <CardHeader>
                 <CardTitle className="font-thai-heading flex items-center">
                   <Calendar className="w-5 h-5 mr-2 text-primary" />
-                  การเยียมครั้งถัดไป
+                  การเยี่ยมครั้งถัดไป
                 </CardTitle>
               </CardHeader>
               <CardContent>
