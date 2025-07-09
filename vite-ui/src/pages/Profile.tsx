@@ -112,11 +112,19 @@ const Profile = () => {
                 </Avatar>
                 <div>
                   <h3 className="font-thai-heading font-bold text-xl">{user?.nameTH}</h3>
-                  <Badge className={`font-thai ${
-                    userRole === 'senior' ? 'bg-accent' : 'bg-primary'
-                  }`}>
-                    {userRole === 'senior' ? 'ผู้สูงอายุ' : 'สมาชิกครอบครัว'}
-                  </Badge>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Badge className={`font-thai ${userRole === 'senior' ? 'bg-accent' : 'bg-primary'}`}>
+                      {userRole === 'senior' ? 'ผู้สูงอายุ' : 'สมาชิกครอบครัว'}
+                    </Badge>
+                    <select
+                      value={userRole || ''}
+                      onChange={e => setUserRole(e.target.value as 'senior' | 'family')}
+                      className="ml-2 border rounded px-2 py-1 text-sm font-thai focus:outline-primary"
+                    >
+                      <option value="senior">ผู้สูงอายุ</option>
+                      <option value="family">สมาชิกครอบครัว</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               

@@ -8,14 +8,22 @@ import { useApp } from '@/contexts/AppContext';
 
 const Index = () => {
   const navigate = useNavigate();
-  const { setUserRole, isAuthenticated, userRole } = useApp();
+  const { setUserRole, setUser, isAuthenticated, userRole } = useApp();
 
   const handleRoleSelection = (role: 'senior' | 'family') => {
     setUserRole(role);
-    if (isAuthenticated) {
-      navigate(role === 'senior' ? '/senior-dashboard' : '/family-dashboard');
+    // Immediately set a mock user and navigate to dashboard
+    const mockUser = {
+      id: Math.random().toString(36).substr(2, 9),
+      role: role,
+      nameTH: role === 'senior' ? 'คุณผู้สูงอายุ' : 'สมาชิกครอบครัว',
+      email: role === 'senior' ? 'senior@example.com' : 'family@example.com',
+    };
+    setUser(mockUser);
+    if (role === 'senior') {
+      navigate('/senior-dashboard');
     } else {
-      navigate('/auth');
+      navigate('/family-dashboard');
     }
   };
 
@@ -40,19 +48,25 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground font-thai">อุ่นใจดูแล</p>
               </div>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex space-x-2 items-center">
               <Button variant="ghost" onClick={() => navigate('/packages')} className="font-thai">
                 แพ็กเกจ
               </Button>
-              {isAuthenticated ? (
-                <Button onClick={() => navigate('/profile')} className="font-thai touch-button">
-                  โปรไฟล์
-                </Button>
-              ) : (
-                <Button onClick={() => navigate('/auth')} className="font-thai touch-button">
-                  เข้าสู่ระบบ
-                </Button>
-              )}
+              {/* {isAuthenticated ? (
+                <> */}
+                  <Button onClick={() => navigate('/profile')} className="font-thai touch-button">
+                    โปรไฟล์
+                  </Button>
+                  <select
+                    value={userRole || ''}
+                    onChange={e => setUserRole(e.target.value as 'senior' | 'family')}
+                    className="ml-2 border rounded px-2 py-1 text-sm font-thai focus:outline-primary"
+                  >
+                    <option value="senior">ผู้สูงอายุ</option>
+                    <option value="family">สมาชิกครอบครัว</option>
+                  </select>
+                {/* </>
+              ) : null} */}
             </div>
           </div>
         </div>
